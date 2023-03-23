@@ -13,3 +13,6 @@ boards:
   rcar_salvator_xs_m3:
     append:
       EXTRA_DTC_OVERLAY_FILE: boards/rcar_salvator_xs_m3.overlay
+  rcar_spider:
+    append:
+      EXTRA_DTC_OVERLAY_FILE: boards/rcar_spider.overlay

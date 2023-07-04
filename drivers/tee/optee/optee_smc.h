@@ -321,6 +321,13 @@
 #define OPTEE_SMC_EXCHANGE_CAPABILITIES \
 	OPTEE_SMC_FAST_CALL_VAL(OPTEE_SMC_FUNCID_EXCHANGE_CAPABILITIES)
 
+struct optee_smc_exchange_capabilities_result {
+	unsigned long status;
+	unsigned long capabilities;
+	unsigned long reserved0;
+	unsigned long reserved1;
+};
+
 /*
  * Disable and empties cache of shared memory objects
  *

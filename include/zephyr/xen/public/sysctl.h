@@ -12,7 +12,7 @@
 #ifndef __XEN_PUBLIC_SYSCTL_H__
 #define __XEN_PUBLIC_SYSCTL_H__
 
-#if !defined(CONFIG_XEN_INITIAL_DOMAIN)
+#if !defined(CONFIG_XEN_DOM0)
 #error "sysctl operations are intended for use by node control tools only"
 #endif
 

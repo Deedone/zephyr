@@ -130,7 +130,7 @@ static int addr_is_in_buffer(uint8_t *ptr, sys_mem_blocks_t *block)
 {
 	/* Compare ptr to buffer address to determine if it was allocated in this block */
 	return (ptr >= block->buffer) &&
-		(ptr < block->buffer + (block->num_blocks << block->blk_sz_shift));
+		(ptr < block->buffer + (block->info.num_blocks << block->info.blk_sz_shift));
 }
 
 static bool addr_from_extended_region(void *ptr)

@@ -7,7 +7,7 @@
 
 /dts-v1/;
 #include <mem.h>
-#include <arm64/renesas/r8a779f.dtsi>
+#include <arm64/renesas/r8a779f0.dtsi>
 #include "spider-pinctrl.dtsi"
 
 / {

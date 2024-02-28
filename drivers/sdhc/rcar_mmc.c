@@ -1201,7 +1201,7 @@ static int rcar_mmc_set_clk_rate(const struct device *dev, struct sdhc_io *ios)
 		return -EINVAL;
 	}
 
-	divisor = ceiling_fraction(cfg->max_frequency, ios->clock);
+	divisor = DIV_ROUND_UP(cfg->max_frequency, ios->clock);
 
 	/* Do not set divider to 0xff in DDR mode */
 	if (data->ddr_mode && (divisor == 1)) {

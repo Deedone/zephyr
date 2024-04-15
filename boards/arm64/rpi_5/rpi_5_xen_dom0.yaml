@@ -1,0 +1,7 @@
+identifier: rpi_5_xen_dom0
+name: Raspberry Pi 5 Xen Dom0
+type: mcu
+arch: arm64
+toolchain:
+  - zephyr
+  - cross-compile

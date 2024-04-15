@@ -1,0 +1,72 @@
+/*
+ * Copyright 2024 Junho Lee <junho@tsnlab.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+
+#include <broadcom/bcm2712.dtsi>
+#include <mem.h>
+
+/delete-node/ &sram0;
+
+/ {
+	compatible = "raspberrypi,5-model-b-dom0", "raspberrypi,5-model-b", "brcm,bcm2712";
+	model = "Raspberry Pi 5 Xen Dom0";
+	#address-cells = <2>;
+	#size-cells = <2>;
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,console = &xen_consoleio_hvc;
+		zephyr,shell-uart = &xen_consoleio_hvc;
+	};
+
+	psci {
+		method = "hvc";
+	};
+
+	xen_consoleio_hvc: hvc {
+		compatible = "xen,hvc-consoleio";
+		status = "okay";
+	};
+
+	/*
+	 * This node may differs on different setups, please check
+	 * following line in Xen boot log to set it right:
+	 * (XEN) Grant table range: 0x00000002800000-0x00000002840000
+	 * Also, add extended region 0 or 1:
+	 * (XEN) d0: extended region 0: 0x2a00000->0x7e00000
+	 * (XEN) d0: extended region 1: 0x10000000->0x3fa00000
+	 *
+	 * Xen passes actual values for setup in domain device tree, but Zephyr
+	 * is not capable to parse and handle it in runtime.
+	 *
+	 * Extended regions should not overlap kernel Virtual Memory region
+	 * (CONFIG_KERNEL_VM_SIZE, CONFIG_KERNEL_VM_BASE)
+	 */
+	hypervisor: hypervisor@2800000 {
+		compatible = "xen,xen";
+		reg = <0x0 0x2800000 0x0 0x40000>, <0x0 0x2a00000 0x0 0x5400000>;
+		interrupts = <GIC_PPI 0x0f IRQ_TYPE_EDGE IRQ_DEFAULT_PRIORITY>;
+		interrupt-parent = <&gic>;
+		status = "okay";
+	};
+
+	/*
+	 * This node may differs on different setups, because Xen picks
+	 * region for Domain-0 for every specific configuration. You can
+	 * start Xen for your platform and check following log:
+	 * (XEN) Allocating 1:1 mappings totalling 128MB for dom0:
+	 * (XEN) BANK[0] 0x00000008000000-0x00000010000000 (128MB)
+	 * (XEN) Loading zImage from 0000000000080000 to 0000000008000000-000000000831f004
+	 *
+	 * Xen passes actual values for setup in domain device tree, but Zephyr
+	 * is not capable to parse and handle it in runtime.
+	 */
+	sram0: memory@8000000 {
+		compatible = "mmio-sram";
+		reg = <0x00 0x8000000 0x0 DT_SIZE_M(128)>;
+	};
+};

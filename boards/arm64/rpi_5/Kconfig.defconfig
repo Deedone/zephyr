@@ -1,6 +1,19 @@
 # Copyright 2023 honglin leng <a909204013@gmail.com>
 # SPDX-License-Identifier: Apache-2.0
 
+if BOARD_RPI_5
+
 config BOARD
 	default "Raspberry Pi 5"
-	depends on BOARD_RPI_5
+
+endif # BOARD_RPI_5
+
+if BOARD_RPI_5_XEN_DOM0
+
+config BOARD
+	default "Raspberry Pi 5 Xen Dom0"
+
+config XEN_DOM0
+	default y
+
+endif # BOARD_RPI_5_XEN_DOM0

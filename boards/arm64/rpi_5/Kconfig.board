@@ -4,3 +4,7 @@
 config BOARD_RPI_5
 	bool "Broadcom BCM2712"
 	depends on SOC_BCM2712
+
+config BOARD_RPI_5_XEN_DOM0
+	bool "Broadcom BCM2712"
+	depends on SOC_BCM2712

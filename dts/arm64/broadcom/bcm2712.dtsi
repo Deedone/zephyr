@@ -8,6 +8,8 @@
 #include <zephyr/dt-bindings/interrupt-controller/arm-gic.h>
 
 / {
+	compatible = "brcm,bcm2712";
+
 	cpus {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -20,6 +22,11 @@
 	};
 
 	interrupt-parent = <&gic>;
+
+	psci {
+		method = "smc";
+		compatible = "arm,psci-1.0", "arm,psci-0.2", "arm,psci";
+	};
 
 	timer {
 		compatible = "arm,armv8-timer";

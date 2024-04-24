@@ -30,7 +30,7 @@ int xen_domctl_assign_dt_device(int domid, char *dtdev_path);
 int xen_domctl_bind_pt_irq(int domid, uint32_t machine_irq, uint8_t irq_type, uint8_t bus,
 			   uint8_t device, uint8_t intx, uint8_t isa_irq, uint16_t spi);
 int xen_domctl_max_vcpus(int domid, int max_vcpus);
-int xen_domctl_createdomain(int domid, struct xen_domctl_createdomain *config);
+int xen_domctl_createdomain(int *domid, struct xen_domctl_createdomain *config);
 int xen_domctl_cacheflush(int domid,  struct xen_domctl_cacheflush *cacheflush);
 int xen_domctl_destroydomain(int domid);
 int xen_domctl_getvcpu(int domid, uint32_t vcpu, struct xen_domctl_getvcpuinfo *info);
